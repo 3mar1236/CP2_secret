@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="body">
+        <section class="header">
+            <h1 class="title">ENGR 492</h1>
+            <h2 class="subtitle">Course Project # 2</h2>
+        </section>
+
+        <p class="instructions">Select a node and use w, a, s, d keys to move the node around<br>Alternatively, set each
+            node's coordinates in the table</p>
+
+            <div id="wasd" class="wasd-container">  
+                <div>
+                    <div class="w">
+                        <button id="w">w</button>
+                    </div>
+                    <div class="asd">
+                        <button id="a">a</button>
+                        <button id="s">s</button>
+                        <button id="d">d</button>
+                    </div>
+                </div>
+            </div>
+
+            <section id="figure1">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-35 -30 200 150">
+                    <path class="Y-Axis-line dass"d="m 10 100 l 0 -100 m 10 100 l 0 -100 m 10 100 l 0 -100 m 10 100 l 0 -100 m 10 100 l 0 -100 m 10 100 l 0 -100 m 10 100 l 0 -100 m 10 100 l 0 -100 m 10 100 l 0 -100 m 10 100 l 0 -100 m 10 100 l 0 -100  m 10 100 l 0 -100 "fill="none" stroke-width="0.75px" stroke-linecap="round" />
+                    <path class="X-Axis-line dass"d="m 0 90 l 120 0 m -120 -10 l 120 0 m -120 -10 l 120 0 m -120 -10 l 120 0 m -120 -10 l 120 0 m -120 -10 l 120 0 m -120 -10 l 120 0 m -120 -10 l 120 0 m -120 -10 l 120 0 m -120 -10 l 120 0"fill="none" stroke-width="0.75px" stroke-linecap="round" />
+                    <g id="element-lines"></g>
+                    <path class="global-X-Axis"d="m 127 100 l 25 0 m 0 0 l -5 4 m 5 -4 l -5 -4 m 15 7 l -6 -6 m 3 3 m 0 0 m -3 3 l 6 -6 "fill="none" stroke="black" stroke-width="2px" stroke-linecap="round" />
+                    <path class="X-Axis-line" d="m 0 100 l 120 0" fill="none" stroke="black" stroke-width="2px" stroke-linecap="round" />
+                    <path class="global-Y-Axis"d="m 0 -7 l 0 -20 m 0 0 l -5 6 m 5 -6 l 5 6 m -7 -10 l 5 -9 m -5 0 l 2 3 " fill="none"stroke="black" stroke-width="2px" stroke-linecap="round" />
+                    <path class="Y-Axis-line" d="m 0 100 l 0 -100" fill="none" stroke="black" stroke-width="2px"
+                        stroke-linecap="round" />
+                    <g id="node-circles"></g>
+                    <g id="component-paths"></g>
+                </svg>
+                <div class="caption">
+                    <button id="updateResults" class="">Update Results</button>
+                    <button id="reload" class="">Update Truss</button>
+                    <button id="resetTruss" class="">Reset Truss</button>
+                </div>
+            </section>
+
+        <section id="results-container" class="body-section">
+            <div class="data-selection">
+                <h2 id="Results" class="Results">Results</h2>
+            </div>
+        </section>
+    </div>
+
+    <div class="body">
+        <section id="nodes-container" class="body-section">
+            <div class="data-selection">
+                <button id="Coordinates" class=""><span class="table-title">Nodes</span></button>
+            </div>
+            <table id="node-coordinates" class="node-coordinates">
+                <thead>
+                    <tr>
+                        <th>Node</th>
+                        <th>x-value</th>
+                        <th>y-value</th>
+                    </tr>
+                </thead>
+
+                <tbody id="node-values-table">
+                </tbody>
+                <tr id="gap-row"></tr>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>At Node</th>
+                        <th>Angle [deg]</th>
+                        <th>Value [lb]</th>
+                    </tr>
+                </thead>
+
+                <tbody id="component-values-table">
+
+                </tbody>
+            </table>
+        </section>
+
+        <section id="elements-container" class="body-section">
+            <div class="data-selection">
+                <button id="Elements" class=""><span class="table-title">Elements</span></button>
+            </div>
+
+            <table id="element-connections" class="element-connections">
+                <thead>
+                    <tr class="elements-headers">
+                        <th>Elements</th>
+                        <th>Node Connectivity</th>
+                        <th>Cross Section</th>
+                        <th>Material</th>
+                    </tr>
+                </thead>
+
+                <tbody id="element-values-table">
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+        <section id="stiffness-matrix-container" class="body-section">
+            <div class="data-selection">
+                <button id="Global-Matrix"><span class="table-title">Global Stiffness Matrix</span></button>
+            </div>
+
+            <table id="Global-stiffness-matrix" class="Global-stiffness-matrix">
+                <thead>
+                    <tr>
+                        <th class="not"></th>
+                        <th>u1</th>
+                        <th>v1</th>
+                        <th>u2</th>
+                        <th>v2</th>
+                        <th>u3</th>
+                        <th>v3</th>
+                        <th>u4</th>
+                        <th>v4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>u1</th>
+                        <td><span class="MatrixCell" id="1x1">0</span></td>
+                        <td><span class="MatrixCell" id="1x2">0</span></td>
+                        <td><span class="MatrixCell" id="1x3">0</span></td>
+                        <td><span class="MatrixCell" id="1x4">0</span></td>
+                        <td><span class="MatrixCell" id="1x5">0</span></td>
+                        <td><span class="MatrixCell" id="1x6">0</span></td>
+                        <td><span class="MatrixCell" id="1x7">0</span></td>
+                        <td><span class="MatrixCell" id="1x8">0</span></td>
+                    </tr>
+                    <tr>
+                        <th>v1</th>
+                        <td><span class="MatrixCell" id="2x1">0</span></td>
+                        <td><span class="MatrixCell" id="2x2">0</span></td>
+                        <td><span class="MatrixCell" id="2x3">0</span></td>
+                        <td><span class="MatrixCell" id="2x4">0</span></td>
+                        <td><span class="MatrixCell" id="2x5">0</span></td>
+                        <td><span class="MatrixCell" id="2x6">0</span></td>
+                        <td><span class="MatrixCell" id="2x7">0</span></td>
+                        <td><span class="MatrixCell" id="2x8">0</span></td>
+                    </tr>
+                    <tr>
+                        <th>u2</th>
+                        <td><span class="MatrixCell" id="3x1">0</span></td>
+                        <td><span class="MatrixCell" id="3x2">0</span></td>
+                        <td><span class="MatrixCell" id="3x3">0</span></td>
+                        <td><span class="MatrixCell" id="3x4">0</span></td>
+                        <td><span class="MatrixCell" id="3x5">0</span></td>
+                        <td><span class="MatrixCell" id="3x6">0</span></td>
+                        <td><span class="MatrixCell" id="3x7">0</span></td>
+                        <td><span class="MatrixCell" id="3x8">0</span></td>
+                    </tr>
+                    <tr>
+                        <th>v2</th>
+                        <td><span class="MatrixCell" id="4x1">0</span></td>
+                        <td><span class="MatrixCell" id="4x2">0</span></td>
+                        <td><span class="MatrixCell" id="4x3">0</span></td>
+                        <td><span class="MatrixCell" id="4x4">0</span></td>
+                        <td><span class="MatrixCell" id="4x5">0</span></td>
+                        <td><span class="MatrixCell" id="4x6">0</span></td>
+                        <td><span class="MatrixCell" id="4x7">0</span></td>
+                        <td><span class="MatrixCell" id="4x8">0</span></td>
+                    </tr>
+                    <tr>
+                        <th>u3</th>
+                        <td><span class="MatrixCell" id="5x1">0</span></td>
+                        <td><span class="MatrixCell" id="5x2">0</span></td>
+                        <td><span class="MatrixCell" id="5x3">0</span></td>
+                        <td><span class="MatrixCell" id="5x4">0</span></td>
+                        <td><span class="MatrixCell" id="5x5">0</span></td>
+                        <td><span class="MatrixCell" id="5x6">0</span></td>
+                        <td><span class="MatrixCell" id="5x7">0</span></td>
+                        <td><span class="MatrixCell" id="5x8">0</span></td>
+                    </tr>
+                    <tr>
+                        <th>v3</th>
+                        <td><span class="MatrixCell" id="6x1">0</span></td>
+                        <td><span class="MatrixCell" id="6x2">0</span></td>
+                        <td><span class="MatrixCell" id="6x3">0</span></td>
+                        <td><span class="MatrixCell" id="6x4">0</span></td>
+                        <td><span class="MatrixCell" id="6x5">0</span></td>
+                        <td><span class="MatrixCell" id="6x6">0</span></td>
+                        <td><span class="MatrixCell" id="6x7">0</span></td>
+                        <td><span class="MatrixCell" id="6x8">0</span></td>
+                    </tr>
+                    <tr>
+                        <th>u4</th>
+                        <td><span class="MatrixCell" id="7x1">0</span></td>
+                        <td><span class="MatrixCell" id="7x2">0</span></td>
+                        <td><span class="MatrixCell" id="7x3">0</span></td>
+                        <td><span class="MatrixCell" id="7x4">0</span></td>
+                        <td><span class="MatrixCell" id="7x5">0</span></td>
+                        <td><span class="MatrixCell" id="7x6">0</span></td>
+                        <td><span class="MatrixCell" id="7x7">0</span></td>
+                        <td><span class="MatrixCell" id="7x8">0</span></td>
+                    </tr>
+                    <tr>
+                        <th>v4</th>
+                        <td><span class="MatrixCell" id="8x1">0</span></td>
+                        <td><span class="MatrixCell" id="8x2">0</span></td>
+                        <td><span class="MatrixCell" id="8x3">0</span></td>
+                        <td><span class="MatrixCell" id="8x4">0</span></td>
+                        <td><span class="MatrixCell" id="8x5">0</span></td>
+                        <td><span class="MatrixCell" id="8x6">0</span></td>
+                        <td><span class="MatrixCell" id="8x7">0</span></td>
+                        <td><span class="MatrixCell" id="8x8">0</span></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+        </section>
+
+    </div>
+</body>
+<!-- <script type="module" src="script.js"></script> -->
+<script type="module" src="scriptUp.js"></script>
+<!-- <script type="module" src="ENGR492_Course_Project_2_My_Sol.js"></script> -->
+
+</html>
