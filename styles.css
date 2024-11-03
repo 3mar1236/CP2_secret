@@ -10,19 +10,24 @@
     --table-header-background-color: transparent;
     --table-header-border-bottom-color: burlywood;
     --table-container-background-color: lightyellow;
-    --table-container-border-color: rgb(228, 223, 172);
+    --table-container-border-color: burlywood; /*used to be rgb(228, 223, 172)*/
 
     --input-element-background-color: lemonchiffon; 
+    --input-element-border-color: rgb(172, 143, 105);
 
     --caption-button-colour: rgb(255, 235, 145);
     --caption-button-colour-hover:rgb(255, 228, 106);
     --caption-button-colour-active: rgb(250, 215, 61);
-    --caption-button-border-colour: burlywood;
+    --caption-button-border-colour:  rgb(172, 143, 105);
+    --selected-Caption-Button-Background: burlywood;
 
-    --title-container-border-color: burlywood;
+    --title-container-border-color:  rgb(172, 143, 105); /*all borders used to be burlywood */
     --title-container-background-color: lightyellow; 
 
-    --font-family-main:  monospace;
+    --new-node-background-colour: rgb(255, 247, 174); 
+    --new-component-background-colour: rgb(255, 247, 174); 
+
+    --font-family-main: monospace;
 
 }
 
@@ -39,11 +44,16 @@ body {
     gap: min(2rem, 8vw);
     padding-inline: 2rem;
     width: fit-content;
+    
+    margin-inline: auto;
 
+    border: solid 5px var(--title-container-border-color);
 
     /* this is where the problem is gonn a be so look here  */
-    transform: scale(0.85) translateY(-4rem);
+    /* transform: scale(0.85) translateY(-4rem); */
+    /* transform: scale(0.8) translate(-12rem,-14em) ; */
     /* transform: translateY(-2rem); */
+
 }
 
 .body{
@@ -86,42 +96,6 @@ body {
     padding-bottom: 2rem;
 }
 
-
-/* -- on screen controls for touch devices -- */
-.wasd-container{
-    display: none;
-    transform: scale(1.375) translate(1rem, 0);
-
-}
-.wasd-container > div{
-    width: fit-content;
-}
-.wasd-container > div div{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-.wasd-container div button{
-    width: 2rem;
-    height: 2rem;
-    border: solid 1px rgba(0, 0, 0, 0.447);
-    border-radius: 4px;
-    font-size: 1.25rem;
-    background-color: rgba(247, 232, 162, 0.375);
-
-}
-.w button{
-    margin-bottom: 0.175rem;
-}
-.asd button{
-    margin-inline: 0.1rem;
-}
-.wasd-container > div button:hover{
-    background-color: rgba(96, 96, 96, 0.15);
-}
-/*  ------------------------------------------ */
-
 .instructions{
     text-align: center;
     font-weight: bold;
@@ -138,9 +112,20 @@ body {
 }
 
 svg{
-    height: 35rem;
-    width: 35rem;
-    transform: translateX(-2rem)
+    position: relative;
+    height: 47rem;
+    width: 47rem;
+    /* transform: translateX(-2rem) */
+    /* border: solid 1px black; */
+}
+
+.non {
+    display : none;
+}
+.min > *{
+    stroke-width: 0.05rem;
+    stroke: rgb(133, 102, 102);
+    fill: none;
 }
 
 .Y-Axis-line, .X-Axis-line {
@@ -157,7 +142,10 @@ svg{
 
 svg > .element:hover{
     stroke: rgb(48, 48, 255);
+    color: rgb(87, 110, 116)
 }
+
+
 
 .node-table-icon{
     border: 1px solid black; 
@@ -190,8 +178,6 @@ svg > .element:hover{
     background-color: var(--table-header-background-color);
     border-bottom: 3px solid var(--table-header-border-bottom-color);
     border-top: none;
-    width:75vw;
-    max-width: 45rem;
     height:3rem;
     display: flex;
     justify-content:space-evenly;
@@ -232,7 +218,18 @@ svg > .element:hover{
 }
 
 .ele{
-    font-size: 1.25rem;
+    font-size: 1.375rem;
+    letter-spacing: 0.075rem;
+}
+
+.component{
+    font-size: 1.125rem;
+    letter-spacing: 0.075rem;
+    text-wrap: nowrap;
+    font-weight: bold;
+
+    padding-inline: 2rem;
+    
 }
 
 .Cross-Section-input{
@@ -304,13 +301,15 @@ table > * > * > * input, .FixedSupportAngle{
     padding-top: 0.125rem !important;
     padding-bottom: 0.125rem !important;
     font-size: 1rem !important;
-    background-color: var(--input-element-background-color)
+    background-color: var(--input-element-background-color);
+    border: 2px solid var(--input-element-border-color);
 }
 
 .material-dropdown{
     padding: 0.125rem 0 0.125rem 0rem;
     font-size: 1rem;
-    background-color: var(--input-element-background-color)
+    background-color: var(--input-element-background-color);
+    border: 2px solid var(--input-element-border-color);
 }
 
 table > * > * > *{
@@ -339,10 +338,6 @@ table thead tr:first-of-type{
     border-top: black 2px solid;
 }
 
-
-.n1, .n2, .n3, .n4{ /* also node-connectivity-node-icon */
-
-}
 
 .node-connectivity-node-icon{
     border: solid 2px black;
@@ -381,6 +376,10 @@ table thead tr:first-of-type{
     border-bottom: none;
 }
 
+th{
+    font-size: 1.25rem;
+    letter-spacing: 0.05rem;
+}
 .comp-node{
     border: 1px solid black; 
     border-radius: 3px; 
@@ -390,21 +389,445 @@ table thead tr:first-of-type{
     text-align: center;
 }
 
+.new-node-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--new-node-background-colour);
+    border: solid 3px var(--table-container-border-color);
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: -3rem;
+    padding: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 0.75rem;
+    gap: 0.75rem;
+}
+
+.new-node-div-input-containers{
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.new-node-div-coordinate-input-container{
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    gap: 2.5rem;
+
+    padding-top: 1rem;
+    padding-left: 1rem;
+}
+
+
+.new-node-coordinate-div-label{
+    border-bottom: solid 3px var(--caption-button-border-colour);
+    width: 9.25rem;
+    padding-left: 0.25rem;
+    font-size: 1.25rem;
+    margin-top: -0.25rem;
+
+    padding-bottom: 0.25rem;
+}
+
+.new-node-coordinate-input-label{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 0.25rem;
+    width: 15rem;
+}
+.new-node-coordinate-input-label:last-of-type{
+    width: 15rem;
+    padding-left: 0.5rem;
+}
+
+.new-node-input-label{
+    font-size: 1.125rem;
+}
+
+.new-node-coordinate-input{
+    width: 8rem;
+    padding: 0.125rem 0.5rem;
+    border: solid 3px var(--input-element-border-color);
+    background-color: var(--input-element-background-color);
+}
+
+.new-node-color-option, .selected-new-node-color-option{
+
+    min-height: 1.5rem;
+    padding-inline: 0.5rem;
+    width: 8rem;
+    border: solid 3px var(--input-element-border-color);
+    background-color: var(--input-element-background-color);
+
+}
+
+.horizontal-line-divider{
+    background-color: var(--caption-button-border-colour);
+    width: 3px;
+    transform: scaleY(0.875);
+    
+}
+
+.new-node-element-connection-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+}
+
+.new-node-element-connection-div-label{
+    margin-top: 0.5rem;
+    font-size: 1.25rem;
+    border-bottom: solid 3px var(--caption-button-border-colour);
+    width: 12rem;
+    text-align: center;
+    padding-bottom: 0.25rem;
+}
+
+.element-connection-dropdown{
+    border: solid 3px var(--input-element-border-color);
+    background-color: var(--input-element-background-color);
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.375px;
+    text-wrap: nowrap;
+    text-align: center;
+    min-height: 1.25rem;
+    padding: 0.25rem 0.5rem;
+}
+
+#spanCSfrom{
+    padding-bottom: 1rem;
+    border-bottom: solid 3px var(--caption-button-border-colour);
+}
+
+#spanfrom{
+    padding-top: 1rem;
+    border-top: solid 3px var(--caption-button-border-colour);
+}
+
+
+
+
+.new-node-div-submit-button-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-top: 0.75rem;
+    border-top: solid 3.5px var(--caption-button-border-colour);
+}
+
+.new-node-div-submit-button-container > button{
+    font-size: 1.125rem;
+    padding: 0.25rem 0.75rem;
+    border: solid 3px var(--input-element-border-color);
+    background-color: var(--input-element-background-color);
+}
+
+
+
+
+
+
+
+
+
+.new-component-div{
+    display: flex;
+    /* flex-direction: column; */
+    align-items: flex-start;
+    padding-inline: 2.45rem;
+    padding-block: 2rem;
+    padding-bottom: 3.5rem;
+    border: solid 3px var(--table-container-border-color);
+    background-color:  var(--new-component-background-colour);
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+}
+
+
+.new-component-div > *{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    /* border: solid 2px black; */
+    height: 18rem;
+    padding-inline: 1rem;
+    padding-top:1rem;
+    padding-right: 2.375rem;
+
+}
+
+.new-component-div > *:last-child{
+    border-left: solid 3.5px var(--caption-button-border-colour);
+    padding-inline: 1rem;
+    padding-left: 3rem;
+    width: 18rem;
+}
+
+.new-fixture-form, .new-force-form{
+ width: 100%;
+
+}
+
+
+.new-component-div-Title{
+   border-bottom:  solid 3.5px var(--caption-button-border-colour);
+   width: 15rem;
+
+}
+
+.new-component-div-Title > *{
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+    text-wrap: nowrap;
+    text-align: center;
+    padding-bottom: 0.125rem;
+}
+
+
+.new-component-div-Input > * {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: 2rem;
+    
+}
+
+.new-force-input-container, .new-fixture-input-container{
+    /* border: solid 2px black; */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 16rem;
+    flex-wrap: nowrap;
+    gap: 0.25rem;
+}
+
+.new-force-input-container >*:last-child, .new-fixture-input-container  >*:last-child{
+    border: solid 2px var(--caption-button-border-colour);
+    background-color: var(--input-element-background-color);
+
+    font-size: 1rem;
+    padding: 0.25rem 1rem;
+
+    width: 10rem;
+
+}
+
+.new-force-submit-container, .new-fixture-submit-container{
+    align-self: center;
+    /* border: solid 2px black; */
+}
+.new-force-submit-container > *, .new-fixture-submit-container > *{
+    border: solid 3px var(--caption-button-border-colour);
+    background-color: var(--input-element-background-color);
+    font-size: 1.125rem;
+    padding: 0.25rem 1rem;
+}
+
+.new-force-submit-container > *:hover, .new-fixture-submit-container > *:hover{
+    transition: 250ms 100ms linear; 
+    background-color: var(--caption-button-colour-hover);
+}
+
+
+
+.new-force-input-label, .new-fixture-dropdown-label {
+    font-size: 1.125rem;
+    /* letter-spacing: 1px; */
+    text-wrap: nowrap;
+}
+
+.new-element-div-title{
+    border-bottom:  solid 3.5px var(--caption-button-border-colour);
+    width: 15rem;
+ 
+ }
+
+.new-element-div-Title>* {
+     font-size: 1.5rem;
+     letter-spacing: 1px;
+     text-wrap: nowrap;
+     text-align: center;
+     padding-bottom: 0.125rem;
+}
+
+
+
+
+.new-element-materials-dropdown{
+
+    font-size: 1.125rem;
+    /* letter-spacing: 1px; */
+    text-wrap: nowrap;
+
+}
+
+.new-element-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    height: unset;
+    padding-bottom: 6rem;
+}
+
+.new-element-div > *:last-child{
+    border: none;
+    padding: unset;
+    padding-inline: unset;
+}
+
+.new-element-submit-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: solid 3.5px var(--caption-button-border-colour);
+    width: 100%;
+    padding-block: 1rem;
+}
+
+.new-element-div > *:last-child input{
+    width: 8rem;
+}
+
+.new-material-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 34rem;
+    gap: 1rem;
+    margin-top: 1rem;
+    border: solid 3px var(--caption-button-border-colour);
+    background-color:  var(--new-component-background-colour);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    
+}
+
+.new-material-div > *:nth-last-of-type(2) > :nth-last-child(1){
+    /* border: solid 1px black; */
+    display: flex;
+    justify-content: space-between;
+}
+
+.defined-materials-list-header{
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+    border-bottom: solid 3px var(--caption-button-border-colour);
+    padding: 1rem 3rem;
+}
+
+.defined-materials-list-header > *:last-of-type{
+    width: 3rem;
+    /* border: solid 3px var(--caption-button-border-colour); */
+}
+
+.addAMaterialSelection-input-container, .defined-materials-list-element{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    /* border-top: solid 3px var(--caption-button-border-colour); */
+    /* border-bottom: solid 3px var(--caption-button-border-colour); */
+    padding: 1rem 2rem;
+}
+
+.addAMaterialSelection-input-container > *{
+    gap: 1.5rem;
+    border: solid 3px var(--caption-button-border-colour);
+    background-color: var(--input-element-background-color);
+    border-radius: 10px;
+    padding: 0.5rem 0.75rem;
+    text-wrap: nowrap;
+}
+
+.addAMaterialSelection-input-container > *:hover{
+    transition: 250ms 100ms linear; 
+    background-color: var(--caption-button-colour-hover);
+}
+
+.defineNewMaterialInputElement{
+    width: 5rem;
+    margin: 0;
+    border: solid black 2px;
+}
+
+.defined-materials-list-element > *{
+    width: 5rem;
+    min-width: 5rem;
+}
+
+.definedMaterialEntry{
+    width: 5rem;
+    text-align: center;
+}
+
+
+.flipped{
+    transition: all 1000ms ease-in-out !important;
+    transform: rotate(270deg) scale(0.375) !important;
+    background-color: var(--selected-Caption-Button-Background) !important;
+    border: var(--input-element-border-color) 10px solid!important;
+}
+
+.tables-body-flipped {
+    transition: all 1000ms ease-in-out !important;
+    flex-direction: column-reverse;
+}
+
+.hideBarText{
+    display: none;
+}
+
+.element-results-table, .nodes-results-table{
+    min-width: 50rem;
+    height: fit-content;
+}
+
+.element-results-table th, .nodes-results-table th{
+    text-wrap : nowrap;
+}
+
+.element-results-table td:not(:first-of-type), .nodes-results-table td:not(:first-of-type){
+    border-left: 1px solid black;
+    text-align: center;
+}
+
+.longerEntry{
+    min-width: 12rem;
+}
 
 @media (max-width: 600px){
+
     body{
         flex-direction: column;
         gap: 0;
     }
+
     .body:first-of-type{
         padding-top: 1rem;
         padding-bottom: 0 !important;
         /* border: solid 1px black; */
     }
+
     .body:last-of-type{
         padding-top: 0 !important;
         /* border: solid 1px black; */
     }
+
     .results-div{
         position: absolute !important;
         display: none !important;
@@ -412,7 +835,7 @@ table thead tr:first-of-type{
         z-index: 1;
         background-color: rgb(246, 235, 184) !important;
     }
-    
+
     svg{
         height: 25rem;
         width: 25rem;
